@@ -1,0 +1,35 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.env
+.env.*
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Build
+build/
+dist/
+.next/
+out/
+coverage/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+copilot.md 
+PROGRESS.md
+TODO.md

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "next.config.js", "use": "@vercel/next" }
+  ],
+  "env": {
+    "MONGODB_URI": "",
+    "EMAIL_USER": "",
+    "EMAIL_PASS": "",
+    "ADMIN_EMAIL": "",
+    "ADMIN_PASSWORD": "",
+    "NEXTAUTH_SECRET": ""
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
