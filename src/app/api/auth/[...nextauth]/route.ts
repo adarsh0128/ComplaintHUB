@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDatabase } from '@/utils/db';
-import Admin from '@/models/Admin';
-import bcrypt from 'bcryptjs';
+import { connectToDatabase } from "@/utils/db";
+import Admin from "@/models/Admin";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
@@ -11,7 +11,7 @@ const handler = NextAuth({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
@@ -21,18 +21,21 @@ const handler = NextAuth({
           await connectToDatabase();
           const admin = await Admin.findOne({ email: credentials.email });
           if (!admin) return null;
-          const valid = await bcrypt.compare(credentials.password, admin.password);
+          const valid = await bcrypt.compare(
+            credentials.password,
+            admin.password
+          );
           if (!valid) return null;
           return {
             id: admin._id.toString(),
             email: admin.email,
-            name: 'Admin',
+            name: "Admin",
           };
         } catch (error) {
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   session: {
     strategy: "jwt",
@@ -54,13 +57,13 @@ const handler = NextAuth({
         session.user.name = token.name as string;
       }
       return session;
-    }
+    },
   },
   pages: {
     signIn: "/admin/login",
     error: "/admin/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "test-hardcoded-secret",
 });
 
 export { handler as GET, handler as POST };
